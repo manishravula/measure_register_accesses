@@ -6,33 +6,33 @@ This includes GP-Registers (RAX,RBX, etc) and their word variants, RIP (instruct
 
 # Usage:
 
-l. `cd $PIN_ROOT`, where PIN_ROOT is the root of PIN directory.
+1. `cd $PIN_ROOT`, where PIN_ROOT is the root of PIN directory.
 
-l. Copy the regcount.cpp file in `$PIN_ROOT/source/tools/ManualExamples/` inside the pin root directory.
+1. Copy the regcount.cpp file in `$PIN_ROOT/source/tools/ManualExamples/` inside the pin root directory.
 
-l. `cd $PIN_ROOT/source/tools/ManualExamples/`
+1. `cd $PIN_ROOT/source/tools/ManualExamples/`
 
-l. Add `regcount` to line 20(TEST_TOOL_ROOTS) in `makefile.rules` in the same directory.
+1. Add `regcount` to line 20(TEST_TOOL_ROOTS) in `makefile.rules` in the same directory.
 
-l. run `make` in the same directory.
+1. run `make` in the same directory.
 
-l. `cd $PIN_ROOT`, use it like any other pintool module. 
+1. `cd $PIN_ROOT`, use it like any other pintool module. 
 
-l. Example: `./pin ./source/tools/ManualExamples/obj64_intel/regcount.so -- /bin/ls`
+1. Example: `./pin ./source/tools/ManualExamples/obj64_intel/regcount.so -- /bin/ls`
 
 The default output is to regcount.txt, but can be changed by using -o flag. 
 
 # Explanation and Debugging:
 
-The module works by inserting an analysis call infront of each instruction that accesses a register. By using the [LEVEL_CORE::INS_RegR](https://software.intel.com/sites/landingpage/pintool/docs/71313/Pin/html/group__INS__BASIC__API__GEN__IA32.html#ga69227a9c571b3899fabdeb51333b36b9) and it's sister API calls, it loops through all read and write registers for each instruction calls and increments counters accordingly. 
+The module works by inserting an analysis call prior to each instruction that accesses a register. By using the [LEVEL_CORE::INS_RegR](https://software.intel.com/sites/landingpage/pintool/docs/71313/Pin/html/group__INS__BASIC__API__GEN__IA32.html#ga69227a9c571b3899fabdeb51333b36b9) and its sister APIs, the module loops through all read and write registers for each instruction call and increments counters accordingly. 
 
-For debugging which register was identified as accessed, change the `C_DEBUG` flag inside regcount.cpp to 1. After running this new pin-module, the `regcount.out` file contains detailed information about the analysis. An example of such trace `example/regcount.out` for a simple multiplication program test.s is included in the repo.
+For debugging which register was identified as accessed, change the `C_DEBUG` flag inside regcount.cpp to 1. After compiling and running the new pin module, the `regcount.out` file contains detailed information about the analysis. An example of such a trace `example/regcount.out` for a simple multiplication program `test.s` is included in the repo for reference.
 
 You can compile the `example/test.s` file by running the following commands.
 
 ```BASH
-nasm -f elf64 -o test.o test.s
-ld -o test test.o
+$ nasm -f elf64 -o test.o test.s
+$ ld -o test test.o
 ```
 
 A sample line in the debug output is illustrated here:
