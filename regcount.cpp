@@ -88,7 +88,7 @@ VOID Instruction(INS ins, VOID *v){
 
     
 KNOB<string> KnobOutputFile(KNOB_MODE_WRITEONCE, "pintool",
-    "o", "regcount.out", "specify output file name");
+    "o", "regcount.txt", "specify output file name");
 
 // This function is called when the application exits
 VOID Fini(INT32 code, VOID *v)
