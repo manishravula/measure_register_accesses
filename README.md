@@ -28,7 +28,7 @@ The module works by inserting an analysis call prior to each instruction that ac
 
 For debugging which register was identified as accessed, change the `C_DEBUG` flag inside regcount.cpp to 1. After compiling and running the new pin module, the `regcount.out` file contains detailed information about the analysis. An example of such a trace `example/regcount.out` for a simple multiplication program `test.s` is included in the repo for reference.
 
-You can compile the `example/test.s` file by running the following commands.
+You can compile the [`example/test.s`](example/test.s) file by running the following commands.
 
 ```BASH
 $ nasm -f elf64 -o test.o test.s
