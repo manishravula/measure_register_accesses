@@ -26,7 +26,7 @@ The default output is to regcount.txt, but can be changed by using -o flag.
 
 The module works by inserting an analysis call prior to each instruction that accesses a register. By using the [LEVEL_CORE::INS_RegR](https://software.intel.com/sites/landingpage/pintool/docs/71313/Pin/html/group__INS__BASIC__API__GEN__IA32.html#ga69227a9c571b3899fabdeb51333b36b9) and its sister APIs, the module loops through all read and write registers for each instruction call and increments counters accordingly. 
 
-For debugging which register was identified as accessed, change the `C_DEBUG` flag inside regcount.cpp to 1. After compiling and running the new pin module, the `regcount.out` file contains detailed information about the analysis. An example of such a trace [`example/regcount.txt`](example/regcount.txt) for a simple multiplication program `test.asm` is included in the repo for reference.
+For debugging which register was identified as accessed, change the `C_DEBUG` flag inside regcount.cpp to 1. After compiling and running the new pin module, the `regcount.out` file contains detailed information about the analysis. An example of such a trace [`example/regcount.txt`](example/regcount.txt) for a simple hello world program `test.asm` is included in the repo for reference.
 
 You can compile the [`example/test.asm`](example/test.asm) file by running the following commands.
 
