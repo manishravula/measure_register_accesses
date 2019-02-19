@@ -32,6 +32,9 @@ END_LEGAL */
 #include <fstream>
 #include "pin.H"
 
+
+#define C_DEBUG 0
+
 ofstream OutFile;
 
 // The running count of instructions is kept here
@@ -43,12 +46,16 @@ static UINT64 _rwrite_count = 0;
 
 VOID regread_count(VOID *ip) { 
     rread_count++;
+#if C_DEBUG
 	OutFile << ip << ": R:  " << rread_count << endl;
+#endif
 }
 
 VOID regwrite_count(VOID *ip){
     rwrite_count++;
+#if C_DEBUG
 	OutFile << ip << ": W:  " << rwrite_count << endl;
+#endif
 }
 
 VOID Instruction(INS ins, VOID *v){
@@ -59,13 +66,17 @@ VOID Instruction(INS ins, VOID *v){
     for(idx=0;idx<4;idx++){
        if(INS_RegR(ins,idx)) {
 			INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)regread_count, IARG_INST_PTR, IARG_END);
-            OutFile << "Read " << idx << ": " << _rread_count << ": " << INS_Disassemble(ins) << ": " << REG_StringShort(INS_RegR(ins,idx)) << endl;
-        _rread_count++;
+#if C_DEBUG
+            OutFile << INS_Disassemble(ins) <<  " -- (READ):" <<_rread_count<< " -- " << REG_StringShort(INS_RegR(ins,idx)) << " : " << idx << endl;
+#endif
+            _rread_count++;
         } 
 
        if(INS_RegW(ins,idx)){
 			INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)regwrite_count, IARG_INST_PTR, IARG_END);
-            OutFile << "Write " << idx << ":" << _rwrite_count << ":" << INS_Disassemble(ins) << ":" << REG_StringShort(INS_RegW(ins,idx)) << endl;
+#if C_DEBUG
+            OutFile << INS_Disassemble(ins) <<  " -- (WRITE):" <<_rwrite_count<< " -- " << REG_StringShort(INS_RegW(ins,idx)) << " : " << idx << endl;
+#endif
            	_rwrite_count++;
 
        }

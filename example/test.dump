@@ -1,0 +1,21 @@
+
+test:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000400080 <_start>:
+  400080:	b8 01 00 00 00       	mov    $0x1,%eax
+  400085:	bb 01 00 00 00       	mov    $0x1,%ebx
+  40008a:	b9 02 00 00 00       	mov    $0x2,%ecx
+
+000000000040008f <loop>:
+  40008f:	48 01 d8             	add    %rbx,%rax
+  400092:	48 29 d9             	sub    %rbx,%rcx
+  400095:	48 83 f9 00          	cmp    $0x0,%rcx
+  400099:	75 f4                	jne    40008f <loop>
+
+000000000040009b <last>:
+  40009b:	b8 3c 00 00 00       	mov    $0x3c,%eax
+  4000a0:	bf 00 00 00 00       	mov    $0x0,%edi
+  4000a5:	0f 05                	syscall 
